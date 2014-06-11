@@ -139,6 +139,10 @@ namespace ofxLibdc {
 		dc1394_camera_free_list(list);
 		return initCamera(cameraGuid) && applySettings();
 	}
+    
+    bool Camera::setup(uint64_t cameraGuid) {
+        return initCamera(cameraGuid) && applySettings();
+    }
 	
 	bool Camera::setup(string cameraGuid) {
 		uint64_t cameraGuidInt;
@@ -425,6 +429,19 @@ namespace ofxLibdc {
 		}
 	}
 	
+    //momonja added
+    uint64_t Camera::getCameraGUID(int cameraNumber){
+        dc1394camera_list_t* list;
+        dc1394_camera_enumerate(libdcContext, &list);
+        if(list->num == 0) {
+            ofLog(OF_LOG_ERROR, "No cameras found.");
+            return false;
+        }
+        uint64_t cameraGuid = list->ids[cameraNumber].guid;
+        dc1394_camera_free_list(list);
+        return cameraGuid;
+    }
+    
 	unsigned int Camera::getWidth() const {
 		return width;
 	}

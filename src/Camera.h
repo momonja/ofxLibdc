@@ -31,6 +31,7 @@ public:
 	float getFrameRate() const;
 	
 	virtual bool setup(int cameraNumber = 0);
+    virtual bool setup(uint64_t cameraGuid);
 	virtual bool setup(string cameraGuid);
 	virtual ~Camera();
 	
@@ -100,6 +101,10 @@ public:
 	void getShutterAbsRange(float* min, float* max) const; // in seconds
 	void getFeatureAbsRange(dc1394feature_t feature, float* min, float* max) const;
 	
+    //get Camera GUID
+    uint64_t getCameraGUID(int cameraNumber = 0);
+
+    
 	void printFeatures() const;
 	
 	// image grabbing
